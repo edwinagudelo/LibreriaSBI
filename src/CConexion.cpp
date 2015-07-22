@@ -79,6 +79,7 @@ char* CConexion::Getversion(){
             strcpy(retorno,PQgetvalue(result,0,0));
         }
     }
+    PQclear(result);
     /*switch(PQresultStatus(result)){
 	    case PGRES_TUPLES_OK:
 	        printf("Resultado:\n");
