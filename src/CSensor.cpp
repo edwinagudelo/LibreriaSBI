@@ -15,6 +15,6 @@ CSensor::CSensor()
 CSensor::~CSensor()
 {
     //dtor
-    //if(nombre != NULL)
-        //delete nombre;
+    if(nombre != NULL)
+        delete []nombre;
 }

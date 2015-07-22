@@ -19,18 +19,25 @@ CEscritor::~CEscritor()
 }
 
 void CEscritor::escribir(){
-    stringstream ss;
+    //stringstream ss;
 
     // Valido el registro
     if(reg == NULL)
         return;
     if( contador == 0 )
         abrir();
-    /*if( !salida.is_open() ){
-        abrir();
-    }*/
-    ss<<reg->Getsensor()->Getid()<<";"<<reg->Getsensor()->Getescala()<<";"<<reg->Getsensor()->Getnivel()<<";"<<reg->Getvalor()<<";"<<reg->Getrepresentacion()<<";"<<reg->GetDate()<<";"<<contador<<endl;
-    salida<<ss.str();
+    //if( !salida.is_open() ){
+        //abrir();
+    //}
+    if (depuracion == 1)
+        cout<<(reg->Getsensor())->Getid()<<";"<<(reg->Getsensor())->Getescala()<<";"<<(reg->Getsensor())->Getnivel()<<";"<<reg->Getvalor()<<";"<<reg->Getrepresentacion()<<";"<<reg->GetDate()<<";"<<contador<<endl;
+    //salida<<ss.c_str();
+    //cout<<ss.c_str();
+    if(salida.good())
+        salida<<(reg->Getsensor())->Getid()<<";"<<(reg->Getsensor())->Getescala()<<";"<<(reg->Getsensor())->Getnivel()<<";"<<reg->Getvalor()<<";"<<reg->Getrepresentacion()<<";"<<reg->GetDate()<<";"<<contador<<endl;
+    else
+        cout<<"No se puede escribir"<<endl;
+    //salida.flush();
     contador++;
     if(contador == limite){
         cerrar();
@@ -54,8 +61,12 @@ int CEscritor::abrir(){
     if(salida.is_open())
         salida.close();
     cout<<"Escribiendo temporalmente en:"<<rutacompleta<<endl;
-    salida.open(rutacompleta);
-    delete[] rutacompleta;
+    salida.open(rutacompleta, ios::out);
+    if (!salida.good()){
+        cout<<"Paila el archivo!!!"<<endl;
+    }
+    contador = 0;
+    //delete rutacompleta;
     return retorno;
 }
 

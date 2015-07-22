@@ -66,6 +66,17 @@ namespace SBI{
              * \param val New value to set
              */
             void Setrutatmp(string val) { rutatmp = val; }
+            /** Access id
+             * \return The current value of id
+             */
+            int Getdepuracion() { return depuracion; }
+            /** Set id
+             * \param val New value to set
+             */
+            void Setdepuracion(int val) { depuracion = val; }
+            /** Access nombre
+             * \return The current value of nombre
+             */
 
         protected:
         private:
@@ -77,6 +88,7 @@ namespace SBI{
             ofstream salida; //!< Member variable "salida"
             string rutasal; //!< Member variable "rutasal"
             string rutatmp; //!< Member variable "rutatmp"
+            int depuracion; //!< valor de depuracion
 
             /**
             Funcion que se encarga de registrar los datos

@@ -49,8 +49,8 @@ int CConexion::OpenConn(){
         // Armo la cadena
         cadenacon = (char*)malloc(largo*sizeof(char));
         if (cadenacon != NULL){
-            //sprintf(cadenacon,"hostaddr=%s port=%u dbname=%s user=%s password=%s application_name=%s",hostaddr, port, dbname, username, password, applicationname);
-            sprintf(cadenacon,"hostaddr=%s port=%u dbname=%s user=%s password=%s ",hostaddr, port, dbname, username, password);
+            sprintf(cadenacon,"hostaddr=%s port=%u dbname=%s user=%s password=%s application_name=%s",hostaddr, port, dbname, username, password, applicationname);
+            //sprintf(cadenacon,"hostaddr=%s port=%u dbname=%s user=%s password=%s ",hostaddr, port, dbname, username, password);
             //sprintf(cadenacon,"hostaddr=%s port=%u dbname=%s user=%s password=%s fallback_application_name=%s",hostaddr, port, dbname, username, password,applicationname);
             pgconn = PQconnectdb(cadenacon);
             if(PQstatus(pgconn) != CONNECTION_OK){
@@ -126,7 +126,7 @@ vector<CSensor*> CConexion::Getsensores(){
     if(PQresultStatus(result) == PGRES_TUPLES_OK){
         int i,j;
         for(i = 0 ; i < PQntuples(result) ; i++){
-            CSensor* sen;
+            CSensor* sen = new CSensor();
             for(j = 0; j < PQnfields(result) ; j++){
                 if(PQgetisnull(result,i,j))
                     continue;

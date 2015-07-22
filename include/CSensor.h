@@ -31,7 +31,7 @@ namespace SBI{
              */
             void Setnombre(const char* val) {
                 if(nombre != NULL)
-                    delete nombre;
+                    delete[] nombre;
                 nombre = new char[strlen(val)];
                 strcpy(nombre, val);
             }

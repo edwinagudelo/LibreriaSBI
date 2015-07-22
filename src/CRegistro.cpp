@@ -15,8 +15,8 @@ CRegistro::CRegistro()
 CRegistro::~CRegistro()
 {
     //dtor
-    if(proceso != NULL)
-        delete []proceso;
+    /*if(proceso != NULL)
+        delete proceso;*/
     /*if(sensor != NULL)
         delete sensor;*/
 }
@@ -26,7 +26,7 @@ int CRegistro::LoadData(int val){
         return -1;
     time(&fecreg);
     valor = val;
-    representacion = ((float)(valor + sensor->Getnivel())*(sensor->Getescala()));
+    representacion = ((float)(valor - sensor->Getnivel())*(sensor->Getescala()));
     return 1;
 }
 
