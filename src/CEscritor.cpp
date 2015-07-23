@@ -56,8 +56,8 @@ int CEscritor::abrir(){
     }
     sprintf(nombre,"imp_%s.dat",CUtiles::traerFechaActual());
     rutacompleta = new char[strlen(rutatmp.c_str()) + 25];
-    //sprintf(rutacompleta,"%s/%s",rutatmp.c_str(),nombre);
-    sprintf(rutacompleta,"%s\\%s",rutatmp.c_str(),nombre);
+    sprintf(rutacompleta,"%s/%s",rutatmp.c_str(),nombre);
+    //sprintf(rutacompleta,"%s\\%s",rutatmp.c_str(),nombre);
     if(salida.is_open())
         salida.close();
     cout<<"Escribiendo temporalmente en:"<<rutacompleta<<endl;
@@ -81,8 +81,8 @@ void CEscritor::cerrar(){
         // Paso el archivo a la ruta final
         rutainicial = new char[strlen(rutatmp.c_str()) + 25];
         rutafinal = new char[strlen(rutasal.c_str()) + 25];
-        sprintf(rutainicial,"%s\\%s",rutatmp.c_str(), nombre);
-        sprintf(rutafinal,"%s\\%s",rutasal.c_str(), nombre);
+        sprintf(rutainicial,"%s/%s",rutatmp.c_str(), nombre);
+        sprintf(rutafinal,"%s/%s",rutasal.c_str(), nombre);
 
         // Procedo a mover
         cout<<"Moviendo"<<endl<<"Desde:"<<rutainicial<<endl<<"Hacia:"<<rutafinal<<endl;

@@ -17,7 +17,7 @@ Ing. Edwin A. Agudelo G.
 #include <stdlib.h>
 #include <string.h>
 #include <vector>
-#include "libpq-fe.h"
+#include <postgresql/libpq-fe.h>
 #include "CSensor.h"
 #include "CRegistro.h"
 
