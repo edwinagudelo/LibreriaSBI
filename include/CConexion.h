@@ -17,10 +17,17 @@ Ing. Edwin A. Agudelo G.
 #include <stdlib.h>
 #include <string.h>
 #include <vector>
-#include <postgresql/libpq-fe.h>
+#include <string>
 #include "CSensor.h"
 #include "CRegistro.h"
-
+#include "CRegistroLec.h"
+/// Para el multiplataforma
+#if defined(__linux__)
+// El include de linux
+#include <postgresql/libpq-fe.h>
+#elif defined(__WIN32)
+#include "libpq-fe.h"
+#endif // defined
 
 namespace SBI{
     class CConexion
@@ -146,6 +153,11 @@ namespace SBI{
             *  Funcion para conocer la version de postgresql de tipo integer
             */
             int Getiversion();
+
+            /** InsertRegs
+            *  Funcion para conocer la version de postgresql de tipo integer
+            */
+            int InsertRegs(vector<CRegistroLec*> &lineas);
 
         protected:
         private:

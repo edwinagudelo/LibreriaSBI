@@ -164,3 +164,83 @@ int CConexion::Getiversion(){
     else
         return -1;
 }
+
+int CConexion::InsertRegs(vector<CRegistroLec*> &lineas){
+    PGresult* pgresultado;
+    PGresult* stmt;
+    char valorParam[7][30];
+    const char* valorParamt[7];
+    int largoParam[7];
+    int formatoParam[7] = {0,0,0,0,0,0,0};
+    int procesados = 0;
+    int errores = 0;
+    vector<CRegistroLec*>::iterator r_act = lineas.begin(); // registro actual
+    // Valido
+    if (PQstatus(pgconn) != CONNECTION_OK)
+        return -1;
+    // Alisto la consulta
+    stmt = PQprepare(pgconn, "insert_data",
+                             "INSERT INTO import_data(imp_reg, imp_value, imp_factor, imp_repr, imp_elem, imp_proc, imp_nivel) VALUES(to_timestamp($1,'YYYY-MM-DD HH24-MI:SS'), $2, $3, $4, $5, $6, $7)", 7, NULL);
+    if(PQresultStatus(stmt) == PGRES_COMMAND_OK){
+        // Continuo con la ejecucion
+        while(r_act != lineas.end()){ // Recorro todo el vector
+            // Alisto los parametros
+            sprintf(valorParam[0],"%s",(*r_act)->Getfecha().c_str());
+            //valorParam[0] = (*r_act)->Getfecha().c_str();
+            sprintf(valorParam[1],"%d",(*r_act)->Getvalor());
+            //valorParam[1] = to_string((*r_act)->Getvalor()).c_str();
+            sprintf(valorParam[2],"%f",(*r_act)->Getescala());
+            //valorParam[2] = to_string((*r_act)->Getescala().c_str();
+            sprintf(valorParam[3],"%f",(*r_act)->Getrepresentacion());
+            //valorParam[3] = to_string((*r_act)->Getrepresentacion().c_str();
+            sprintf(valorParam[4],"%d",(*r_act)->Getnmuestra());
+            //valorParam[4] = to_string((*r_act)->Getnmuestra().c_str();
+            sprintf(valorParam[5],"Prueba_123");
+            //valorParam[5] = "Prueba_123";
+            sprintf(valorParam[6],"%d",(*r_act)->Getnivel());
+            //valorParam[6] = to_string((*r_act)->Getnivel().c_str();
+            valorParamt[0] = valorParam[0];
+            valorParamt[1] = valorParam[1];
+            valorParamt[2] = valorParam[2];
+            valorParamt[3] = valorParam[3];
+            valorParamt[4] = valorParam[4];
+            valorParamt[5] = valorParam[5];
+            valorParamt[6] = valorParam[6];
+            largoParam[0] = strlen(valorParam[0]);
+            largoParam[1] = strlen(valorParam[1]);
+            largoParam[2] = strlen(valorParam[2]);
+            largoParam[3] = strlen(valorParam[3]);
+            largoParam[4] = strlen(valorParam[4]);
+            largoParam[5] = strlen(valorParam[5]);
+            largoParam[6] = strlen(valorParam[6]);
+
+            // Ahora ejecuto
+            pgresultado = PQexecPrepared(pgconn,"insert_data",7,valorParamt, largoParam, formatoParam, 0);
+
+            if (PQresultStatus(pgresultado) != PGRES_COMMAND_OK){
+                cout<<"Error en la insercion de datos["<<PQresultErrorMessage(pgresultado)<<"]"<<endl;
+                cout<<"con el registro ["<<(*r_act)->Getnmuestra()<<"]"<<endl;
+                errores++;
+            }
+            else{
+                procesados++;
+            }
+            PQclear(pgresultado);
+            r_act++; // voy con el siguiente elemento
+        }
+    }
+    else{
+        cout<<"No se puede crear ls instruccion de registro:"<<PQresultErrorMessage(stmt)<<endl;
+    }
+    PQclear(stmt);
+    if(PQresultStatus(PQexec(pgconn, "DEALLOCATE insert_data")) != PGRES_COMMAND_OK){
+        cout<<"No se pude desasignar la consulta de registro!!!"<<endl;
+    }
+    cout<<"Registros a cargar:"<<lineas.size()<<endl;
+    cout<<"Lineas registradas:"<<procesados<<endl;
+    cout<<"Lineas erradas:"<<errores<<endl;
+    return procesados;
+}
+
+
+// Final de la implementacion

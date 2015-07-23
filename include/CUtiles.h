@@ -10,6 +10,8 @@
 #include <string>
 #include <iostream>
 #include <regex>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -25,7 +27,10 @@ namespace SBI{
             static char* traerFechaActual();
             /** Funcion para escanear archivos en un directorio a partir de una mascara */
             static int traerListaArchivos(string ruta, string mascara, vector<string> &archivos);
-
+            /** Funcion para hacer split de una cadena */
+            static void split(string cadena, char sep, vector<string> &retorno);
+            /** Funcion para retornar el nombre de un archivo */
+            static string getFileName(const string& s);
         protected:
         private:
     };
