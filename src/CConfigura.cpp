@@ -1,4 +1,4 @@
-#include "CConfigura.h"
+#include "include/CConfigura.h"
 
 CConfigura::CConfigura()
 {

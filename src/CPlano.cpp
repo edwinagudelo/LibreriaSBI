@@ -1,4 +1,4 @@
-#include "CPlano.h"
+#include "include/CPlano.h"
 
 CPlano::CPlano()
 {
@@ -90,6 +90,7 @@ void CPlano::split(string cadena, char sep, string *retorno){
     if(itmp != (int)string::npos){
         string llave = cadena.substr(0,(int)cadena.find(tsep));
         string valor = cadena.substr((int)cadena.find(tsep) + 1, (int)cadena.size());
+        //cout<<"Llave:"<<llave<<"||"<<"Valor:"<<valor<<endl;
         retorno[0] = llave;
         retorno[1] = valor;
     }

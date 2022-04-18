@@ -1,7 +1,7 @@
 #ifndef CPLANO_H
 #define CPLANO_H
 
-#include <CConfigura.h>
+#include <include/CConfigura.h>
 #include <iostream>
 #include <fstream>
 #include <string>
