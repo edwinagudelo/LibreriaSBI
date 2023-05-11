@@ -1,2 +1,9 @@
+# Directories
+
 .vscode/
 build/
+
+# Files
+*.obj
+*.exe
+*.dll

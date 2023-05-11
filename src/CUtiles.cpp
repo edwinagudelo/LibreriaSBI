@@ -2,16 +2,6 @@
 
 using namespace SBI;
 
-CUtiles::CUtiles()
-{
-    //ctor
-}
-
-CUtiles::~CUtiles()
-{
-    //dtor
-}
-
 const char* CUtiles::traerFechaActual(){
     return CUtiles::traerFechaActual("%Y%m%d%H%M%S");
 }
@@ -49,7 +39,7 @@ int CUtiles::traerListaArchivos(const std::string ruta, const std::string mascar
         struct _finddata_t c_file;
         intptr_t hFile;
         char* current_directory ;
-        if( !((current_directory = _getcwd(NULL, o)) == NULL) ){
+        if( !((current_directory = _getcwd(NULL, 0)) == NULL) ){
             _chdir(ruta.c_str());
             if( (hFile = _findfirst(mascara.c_str(), &c_file)) != -1){
                 do{
@@ -74,7 +64,6 @@ int CUtiles::traerListaArchivos(const std::string ruta, const std::string mascar
                         stat(ruta_arch.c_str(), &sb);
                         if(S_ISREG(sb.st_mode)){
                             if(regex_match(std::string(dirp->d_name),val_mascara)){
-                            //if(regex_match("*",val_mascara)){
                                 archivos.push_back(ruta_arch);
                                 cont++;
                             }
@@ -88,13 +77,10 @@ int CUtiles::traerListaArchivos(const std::string ruta, const std::string mascar
     try{
         glob_t gres;
         char *cstr_ruta = new char[sizeof(char) * (ruta.size() + sep.size() + mascara.size()) + 1];
-        //const std::string ruta_completa = (ruta + sep + mascara);
         sprintf(cstr_ruta,"%s%s%s",ruta.c_str(),sep.c_str(), mascara.c_str());
-        //int gtmp = glob(ruta_completa.c_str(), 0, NULL, &gres);
         int gtmp = glob(cstr_ruta, 0, NULL, &gres);
         if( gtmp == 0){
             for(size_t i = 0; i< gres.gl_pathc; i++){
-                //ruta_arch = ruta + sep + std::string(*(gres.gl_pathv));
                 archivos.push_back(std::string(*(gres.gl_pathv)));
                 cont++;
             }
@@ -104,7 +90,6 @@ int CUtiles::traerListaArchivos(const std::string ruta, const std::string mascar
         }
         if(cstr_ruta != NULL)
             delete cstr_ruta;
-        //ruta_completa.swap(ruta_completa);
     }catch(exception &ex){
         cout<<"Error al buscar archivos:"<<ex.what()<<endl;
     }

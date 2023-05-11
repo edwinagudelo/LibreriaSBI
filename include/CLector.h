@@ -8,13 +8,14 @@
 #include "CUtiles.h"
 
 namespace SBI{
+
     class CLector
     {
         public:
             /** Default constructor */
             CLector();
             /** Constructor sobrecargado */
-            CLector(string r_arch);
+            CLector(std::string r_arch);
             /** Default destructor */
             virtual ~CLector();
             /** Access totallineas
@@ -44,27 +45,27 @@ namespace SBI{
             /** Access rutaarch
              * \return The current value of rutaarch
              */
-            string Getrutaarch() { return rutaarch; }
+            std::string Getrutaarch() { return rutaarch; }
             /** Set rutaarch
              * \param val New value to set
              */
-            void Setrutaarch(string val) { rutaarch = val; }
+            void Setrutaarch(std::string val) { rutaarch = val; }
             /** Access rutaerr
              * \return The current value of rutaerr
              */
-            string Getrutaerr() { return rutaerr; }
+            std::string Getrutaerr() { return rutaerr; }
             /** Set rutaerr
              * \param val New value to set
              */
-            void Setrutaerr(string val) { rutaerr = val; }
+            void Setrutaerr(std::string val) { rutaerr = val; }
             /** Access rutaprc
              * \return The current value of rutaprc
              */
-            string Getrutaprc() { return rutaprc; }
+            std::string Getrutaprc() { return rutaprc; }
             /** Set rutaprc
              * \param val New value to set
              */
-            void Setrutaprc(string val) { rutaprc = val; }
+            void Setrutaprc(std::string val) { rutaprc = val; }
             /** Access conn
              * \return The current value of conn
              */
@@ -83,11 +84,11 @@ namespace SBI{
             unsigned int totallineas; //!< Member variable "totallineas"
             unsigned int lineaactual; //!< Member variable "lineaactual"
             unsigned int lineaserror; //!< Member variable "lineaserror"
-            string rutaarch; //!< Member variable "rutaarch"
-            string rutaerr; //!< Member variable "rutaerr"
-            string rutaprc; //!< Member variable "rutaprc"
+            std::string rutaarch; //!< Member variable "rutaarch"
+            std::string rutaerr; //!< Member variable "rutaerr"
+            std::string rutaprc; //!< Member variable "rutaprc"
             CConexion* conn; //!< Member variable "conn"
-            vector<CRegistroLec*> regs;
+            std::vector<CRegistroLec*> regs;
     };
 
 }

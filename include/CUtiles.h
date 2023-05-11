@@ -29,9 +29,9 @@ namespace SBI{
     {
         public:
             /** Default constructor */
-            CUtiles();
+            CUtiles() = delete;
             /** Default destructor */
-            virtual ~CUtiles();
+            virtual ~CUtiles() = delete;
             /** Funcion para calcular fecha actual con formato*/
             static const char* traerFechaActual(char* formato);
             /** Funcion para calcular fecha */
@@ -41,9 +41,9 @@ namespace SBI{
             /** Funcion para escanear archivos en un directorio a partir de una mascara y ordenados */
             static int traerListaArchivos(std::string ruta, std::string mascara, std::vector<std::string> &archivos, int ord);
             /** Funcion para escanear archivos en un directorio a partir de una mascara y ordenados */
-            static int traerListaArchivos(std::string ruta, std::vector<std::string> &archivos;
+            static int traerListaArchivos(std::string ruta, std::vector<std::string> &archivos);
             /** Funcion para hacer split de una cadena */
-            static int split(const std::string& cadena, const char& sep, std::vector<std::string> &retorno);
+            static int split(const std::string& cadena, const char& sep, std::vector<std::string>& retorno);
             /** Funcion para retornar el nombre de un archivo */
             static std::string getFileName(const std::string& s);
             /** Funcion para eliminar espacios*/

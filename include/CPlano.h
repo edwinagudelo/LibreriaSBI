@@ -1,16 +1,19 @@
 #ifndef CPLANO_H
 #define CPLANO_H
 
-#include <include/CConfigura.h>
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <string>
-#include <unistd.h>
 #include <stdlib.h>
-#include <string.h>
+#include <vector>
 #include <sys/stat.h>
+#ifdef __GNUC__
+#include <unistd.h>
+#endif
 
-using namespace std;
+
+#include "CUtiles.h"
+#include "CConfigura.h"
 
 class CPlano : public CConfigura
 {
@@ -22,17 +25,15 @@ class CPlano : public CConfigura
         virtual int cargar();
         void setSeparador(char val);
         char getSeparador();
-        void setRuta(string val);
-        string getRuta();
+        void setRuta(std::string val);
+        std::string getRuta();
         void setComentador(char val);
         char getComentador();
 
     protected:
-        string ruta;
+        std::string ruta;
         char separador;
         char comentador;
-    private:
-        void split(string cadena, char sep, string *retorno);
 };
 
 #endif // CPLANO_H
