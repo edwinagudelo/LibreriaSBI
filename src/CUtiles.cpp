@@ -2,10 +2,6 @@
 
 using namespace SBI;
 
-const char* CUtiles::traerFechaActual(){
-    return CUtiles::traerFechaActual("%Y%m%d%H%M%S");
-}
-
 const char* CUtiles::traerFechaActual(char* formato){
     char* retorno = new char[20];
     time_t t;
@@ -14,6 +10,10 @@ const char* CUtiles::traerFechaActual(char* formato){
     ltm = localtime(&t);
     strftime(retorno,20,formato,ltm);
     return retorno;
+}
+
+const char* CUtiles::traerFechaActual(){
+    return CUtiles::traerFechaActual("%Y%m%d%H%M%S");
 }
 
 int CUtiles::traerListaArchivos(const std::string ruta, const std::string mascara, std::vector<std::string> &archivos){
