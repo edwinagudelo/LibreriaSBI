@@ -61,7 +61,7 @@ int CPlano::cargar(){
             if(lin.c_str()[0] == comentador)
                 continue;
             
-            SBI::CUtiles::split(lin, separador, split_result);
+            SBI::CUtiles::separarCadena(lin, separador, split_result);
             
             if(split_result.size() != 2){
                 std::cerr << "Linea " << lineas << " es inconsistente con el numero de elementos" << std::endl;

@@ -51,7 +51,7 @@ int CLector::procesar(){
         return -5;
     }
 
-    nomArch = CUtiles::getFileName(rutaarch);
+    nomArch = CUtiles::traerNombreArchivo(rutaarch);
 
     entrada.open(rutaarch.c_str());
     if(!entrada.good()){
@@ -72,7 +72,7 @@ int CLector::procesar(){
         std::getline(entrada,lin);
         if(lin.size() < 2)
             continue;
-        CUtiles::split(lin,';',campos);
+        CUtiles::separarCadena(lin,';',campos);
         if(campos.size() != 7){
             if(report_err != 0)
                 salidaerr<<lin;
@@ -110,7 +110,7 @@ int CLector::procesar(){
 void CLector::resumen(){
     std::string sep = std::string(CUtiles::carSeparador());    
     std::cout << "Se proceso el archivo:\t" << rutaarch <<std::endl;
-    std::string nomPrc = rutaprc + sep + CUtiles::getFileName(rutaarch);
+    std::string nomPrc = rutaprc + sep + CUtiles::traerNombreArchivo(rutaarch);
     std::cout << "Se mueve hacia:\t\t" << nomPrc << std::endl;
     std::cout << "Lineas procesadas:\t\t" << totallineas << std::endl;
     std::cout << "Lineas con error:\t\t" << lineaserror << std::endl;

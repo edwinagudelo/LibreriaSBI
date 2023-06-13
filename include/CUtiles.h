@@ -42,10 +42,10 @@ namespace SBI{
             static int traerListaArchivos(std::string ruta, std::string mascara, std::vector<std::string> &archivos, int ord);
             /** Funcion para escanear archivos en un directorio a partir de una mascara y ordenados */
             static int traerListaArchivos(std::string ruta, std::vector<std::string> &archivos);
-            /** Funcion para hacer split de una cadena */
-            static int split(const std::string& cadena, const char& sep, std::vector<std::string>& retorno);
+            /** Funcion para hacer separarCadena de una cadena */
+            static int separarCadena(const std::string& cadena, const char& sep, std::vector<std::string>& retorno);
             /** Funcion para retornar el nombre de un archivo */
-            static std::string getFileName(const std::string& s);
+            static std::string traerNombreArchivo(const std::string& s);
             /** Funcion para eliminar espacios*/
             static void retiraEspacios(char* str);
             /** Funcion para retornar el caracter separador de SO*/
@@ -61,9 +61,9 @@ namespace SBI{
             /** Funcion para saber si un directorio existe */
             static int dirExiste(const char *path);
             /** Funcion para retornar el nombre del usuario de sistema operativo */
-            static const std::string getOSUsername();
+            static const std::string traerNombreUsuarioSO();
             /** Funcion para validar el acceso a lectura de un archivo */
-            static int valAcceso(const char *path);
+            static int validarAccesoLectura(const char *path);
     };
 }
 

@@ -111,7 +111,7 @@ int CUtiles::traerListaArchivos(std::string ruta, std::vector<std::string> &arch
     return tcnt;
 }
 
-int CUtiles::split(const std::string& cadena, const char& sep, std::vector<std::string> &retorno){
+int CUtiles::separarCadena(const std::string& cadena, const char& sep, std::vector<std::string> &retorno){
     std::string tsep(1,sep);
     size_t substart = 0;
     size_t cant_sep;
@@ -124,7 +124,7 @@ int CUtiles::split(const std::string& cadena, const char& sep, std::vector<std::
     return retorno.size();
 }
 
-std::string CUtiles::getFileName(const std::string& s) {
+std::string CUtiles::traerNombreArchivo(const std::string& s) {
    char sep = CUtiles::carSeparador()[0];
    size_t i = s.rfind(sep, s.length());
    if (i != std::string::npos) {
@@ -224,12 +224,12 @@ int CUtiles::dirExiste(const char *path){
         return 0;
 }
 
-const std::string CUtiles::getOSUsername(){
+const std::string CUtiles::traerNombreUsuarioSO(){
     std::string retorno(getenv("USER"));
     return retorno;
 }
 
-int CUtiles::valAcceso(const char *path){
+int CUtiles::validarAccesoLectura(const char *path){
     int retorno = 0;
     #ifndef _WIN32
     if( access(path, R_OK) == -1 ){
