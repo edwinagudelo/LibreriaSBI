@@ -11,36 +11,36 @@ CConfigura::~CConfigura()
     //dtor
 }
 
-string CConfigura::getParam(string llave){
-    string retorno = "";
+std::string CConfigura::getParam(std::string llave){
+    std::string retorno = "";
     if(configuraciones.count(llave) != 0){ // la llave existe
-        map <string,int> mptmp = configuraciones[llave];
+        std::map <std::string,int> mptmp = configuraciones[llave];
         retorno = mptmp.begin()->first;
     }
     return retorno;
 }
 
-bool CConfigura::setParam(string llave, string valor){
+bool CConfigura::setParam(std::string llave, std::string valor){
     if(configuraciones.count(llave) != 0){
         if(modificable == 0){
             return false;
         }
-        cerr<<"Se sobreescribira "<<llave<<endl;
+        std::cerr << "Se sobreescribira" << llave <<std::endl;
     }
-    map<string,int> tmp;
+    std::map<std::string,int> tmp;
     tmp[valor] = (int)(this->NO_TIPO);
     configuraciones[llave] = tmp;
     return true;
 }
 
-bool CConfigura::setParam(string llave, string valor, int tipo){
+bool CConfigura::setParam(std::string llave, std::string valor, int tipo){
     if(configuraciones.count(llave) != 0){
         if(modificable == 0){
             return false;
         }
-        cerr<<"Se sobreescribira "<<llave<<endl;
+        std::cerr << "Se sobreescribira" << llave <<std::endl;
     }
-    map<string,int> tmp;
+    std::map<std::string,int> tmp;
     tmp[valor] = tipo;
     configuraciones[llave] = tmp;
     return true;
@@ -56,9 +56,9 @@ void CConfigura::setModif(int modif){
 }
 
 void CConfigura::mostrar(){
-    for(map<string , map<string, int> >::const_iterator ite = configuraciones.begin() ; ite != configuraciones.end() ; ite++){
-        for(map<string, int>::const_iterator iti = ite->second.begin() ; iti != ite->second.end() ; iti++){
-            cout<<"Parametro:"<<ite->first<<"\tValor:"<<iti-> first<<"\tTipo:"<<iti->second<<endl;
+    for(std::map<std::string , std::map<std::string, int> >::const_iterator ite = configuraciones.begin() ; ite != configuraciones.end() ; ite++){
+        for(std::map<std::string, int>::const_iterator iti = ite->second.begin() ; iti != ite->second.end() ; iti++){
+            std::cout << "Parametro:" << ite->first << "\tValor:" << iti->first << "\tTipo:" << iti->second << std::endl;
         }
     }
 }

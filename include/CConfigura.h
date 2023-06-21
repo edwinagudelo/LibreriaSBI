@@ -2,15 +2,13 @@
 #define CCONFIGURA_H
 
 // Includes
-#include <iostream>
-#include <string>
-#include <map>
-#include <vector>
 #include <algorithm>
+#include <iostream>
+#include <map>
+#include <string>
+#include <vector>
 
 #define VER_CFG "1000"
-
-using namespace std;
 
 class CConfigura
 {
@@ -31,15 +29,12 @@ class CConfigura
             FECHA
         }TIPO_CONF;
 
-        //TIPO_CONF TC_PARAM;
-
         /** Funciones a implementar */
+        virtual std::string getParam(std::string llave);
         /** Funciones a implementar */
-        virtual string getParam(string llave);
+        virtual bool setParam(std::string llave, std::string valor);
         /** Funciones a implementar */
-        virtual bool setParam(string llave, string valor);
-        /** Funciones a implementar */
-        virtual bool setParam(string llave, string valor, int tipo);
+        virtual bool setParam(std::string llave, std::string valor, int tipo);
         /** Funciones a implementar */
         virtual int getModif();
         /** Funciones a implementar */
@@ -50,7 +45,7 @@ class CConfigura
         virtual void mostrar();
     protected:
     private:
-        map<string, map<string, int> > configuraciones;
+        std::map<std::string, std::map<std::string, int> > configuraciones;
         int modificable;
 };
 

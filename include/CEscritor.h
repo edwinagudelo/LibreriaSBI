@@ -8,9 +8,8 @@
 #include "CRegistro.h"
 #include "CUtiles.h"
 
-using namespace std;
-
 namespace SBI{
+    
     class CEscritor
     {
         public:
@@ -53,19 +52,19 @@ namespace SBI{
             /** Access rutasal
              * \return The current value of rutasal
              */
-            string Getrutasal() { return rutasal; }
+            std::string Getrutasal() { return rutasal; }
             /** Set rutasal
              * \param val New value to set
              */
-            void Setrutasal(string val) { rutasal = val; }
+            void Setrutasal(std::string val) { rutasal = val; }
             /** Access rutatmp
              * \return The current value of rutatmp
              */
-            string Getrutatmp() { return rutatmp; }
+            std::string Getrutatmp() { return rutatmp; }
             /** Set rutasal
              * \param val New value to set
              */
-            void Setrutatmp(string val) { rutatmp = val; }
+            void Setrutatmp(std::string val) { rutatmp = val; }
             /** Access id
              * \return The current value of id
              */
@@ -78,16 +77,15 @@ namespace SBI{
              * \return The current value of nombre
              */
 
-        protected:
         private:
             int id; //!< Member variable "id"
             char* nombre; //!< Member variable "nombre"
             double limite; //!< Member variable "limite"
             CRegistro* reg; //!< Member variable "reg"
             double contador; //!< Member variable "contador"
-            ofstream salida; //!< Member variable "salida"
-            string rutasal; //!< Member variable "rutasal"
-            string rutatmp; //!< Member variable "rutatmp"
+            std::ofstream salida; //!< Member variable "salida"
+            std::string rutasal; //!< Member variable "rutasal"
+            std::string rutatmp; //!< Member variable "rutatmp"
             int depuracion; //!< valor de depuracion
 
             /**

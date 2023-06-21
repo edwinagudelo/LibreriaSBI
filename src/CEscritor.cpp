@@ -19,25 +19,19 @@ CEscritor::~CEscritor()
 }
 
 void CEscritor::escribir(){
-    //stringstream ss;
-
     // Valido el registro
     if(reg == NULL)
         return;
     if( contador == 0 )
         abrir();
-    //if( !salida.is_open() ){
-        //abrir();
-    //}
+    
     if (depuracion == 1)
-        cout<<(reg->Getsensor())->Getid()<<";"<<(reg->Getsensor())->Getescala()<<";"<<(reg->Getsensor())->Getnivel()<<";"<<reg->Getvalor()<<";"<<reg->Getrepresentacion()<<";"<<reg->GetDate()<<";"<<contador<<endl;
-    //salida<<ss.c_str();
-    //cout<<ss.c_str();
+        std::cout<< (reg->Getsensor())->Getid() << ";" << (reg->Getsensor())->Getescala() << ";" << (reg->Getsensor())->Getnivel() << ";" << reg->Getvalor() << ";" << reg->Getrepresentacion() << ";" << reg->GetDate() << ";" << contador << std::endl;
     if(salida.good())
-        salida<<(reg->Getsensor())->Getid()<<";"<<(reg->Getsensor())->Getescala()<<";"<<(reg->Getsensor())->Getnivel()<<";"<<reg->Getvalor()<<";"<<reg->Getrepresentacion()<<";"<<reg->GetDate()<<";"<<contador<<endl;
+        salida<< (reg->Getsensor())->Getid() << ";" << (reg->Getsensor())->Getescala() << ";" << (reg->Getsensor())->Getnivel() << ";" << reg->Getvalor() << ";" << reg->Getrepresentacion() << ";" << reg->GetDate() << ";" << contador << std::endl;
     else
-        cout<<"No se puede escribir"<<endl;
-    //salida.flush();
+        std::cout << "No se puede escribir" << std::endl;
+
     contador++;
     if(contador == limite){
         cerrar();
@@ -57,27 +51,25 @@ int CEscritor::abrir(){
     sprintf(nombre,"imp_%s.dat",CUtiles::traerFechaActual());
     rutacompleta = new char[strlen(rutatmp.c_str()) + 25];
     sprintf(rutacompleta,"%s/%s",rutatmp.c_str(),nombre);
-    //sprintf(rutacompleta,"%s\\%s",rutatmp.c_str(),nombre);
     if(salida.is_open())
         salida.close();
-    cout<<"Escribiendo temporalmente en:"<<rutacompleta<<endl;
+    
+    std::cout << "Escribiendo temporalmente en:" << rutacompleta << std::endl;
+    
     salida.open(rutacompleta, ios::out);
     if (!salida.good()){
         cout<<"Paila el archivo!!!"<<endl;
     }
+    
     contador = 0;
-    //delete rutacompleta;
     return retorno;
 }
 
 void CEscritor::cerrar(){
     char *rutainicial;
     char *rutafinal;
-    string sep = "/";
-    #ifdef _WIN32
-        sep = "\\";
-    #endif
-
+    std::string sep = std::string(CUtiles::carSeparador());
+    
     // Cierro el archivo
     if(salida.is_open()){
         salida.close();
@@ -89,7 +81,7 @@ void CEscritor::cerrar(){
         sprintf(rutafinal,"%s%s%s",rutasal.c_str(),sep.c_str(), nombre);
 
         // Procedo a mover
-        cout<<"Moviendo"<<endl<<"Desde:"<<rutainicial<<endl<<"Hacia:"<<rutafinal<<endl;
+        std::cout << "Moviendo" << std::endl << "Desde:" << rutainicial << std::endl << "Hacia:" << rutafinal << std::endl;
         rename(rutainicial, rutafinal);
     }
 

@@ -14,7 +14,7 @@ CLector::CLector()
     conn = NULL;
 }
 
-CLector::CLector(string r_arch){
+CLector::CLector(std::string r_arch){
     rutaarch = r_arch;
     totallineas = 0;
     lineaactual = 0;
@@ -30,11 +30,11 @@ CLector::~CLector()
 }
 
 int CLector::procesar(){
-    ifstream entrada;
-    ofstream salidaerr;
-    string lin;
-    string nomArch;
-    vector<string> campos;
+    std::ifstream entrada;
+    std::ofstream salidaerr;
+    std::string lin;
+    std::string nomArch;
+    std::vector<std::string> campos;
     int report_err = 0;
 
     // Inicio a validar
@@ -51,7 +51,7 @@ int CLector::procesar(){
         return -5;
     }
 
-    nomArch = CUtiles::getFileName(rutaarch);
+    nomArch = CUtiles::traerNombreArchivo(rutaarch);
 
     entrada.open(rutaarch.c_str());
     if(!entrada.good()){
@@ -59,7 +59,7 @@ int CLector::procesar(){
     }
 
     if(report_err != 0){
-        string archerr = rutaerr + "/" + nomArch;
+        std::string archerr = rutaerr + "/" + nomArch;
         salidaerr.open( archerr.c_str() );
         if(!salidaerr.good()){
             return -4;
@@ -69,10 +69,10 @@ int CLector::procesar(){
     // recorro el archivo
     while(!entrada.eof()){
         lineaactual++;
-        getline(entrada,lin);
+        std::getline(entrada,lin);
         if(lin.size() < 2)
             continue;
-        CUtiles::split(lin,';',campos);
+        CUtiles::separarCadena(lin,';',campos);
         if(campos.size() != 7){
             if(report_err != 0)
                 salidaerr<<lin;
@@ -93,10 +93,7 @@ int CLector::procesar(){
     entrada.close();
     if(report_err != 0)
         salidaerr.close();
-    string sep = "/";
-    #ifdef _WIN32
-        sep = "\\";
-    #endif
+    std::string sep = std::string(CUtiles::carSeparador());
 
     // Ahora procedo a registrar en BD
     if(conn->InsertRegs(regs) > 0){
@@ -111,15 +108,12 @@ int CLector::procesar(){
 }
 
 void CLector::resumen(){
-    string sep = "/";
-    #ifdef _WIN32
-        sep = "\\";
-    #endif
-    cout<<"Se proceso el archivo:\t"<<rutaarch<<endl;
-    string nomPrc = rutaprc + sep + CUtiles::getFileName(rutaarch);
-    cout<<"Se mueve hacia:\t\t"<<nomPrc<<endl;
-    cout<<"Lineas procesadas:\t\t"<<totallineas<<endl;
-    cout<<"Lineas con error:\t\t"<<lineaserror<<endl;
+    std::string sep = std::string(CUtiles::carSeparador());    
+    std::cout << "Se proceso el archivo:\t" << rutaarch <<std::endl;
+    std::string nomPrc = rutaprc + sep + CUtiles::traerNombreArchivo(rutaarch);
+    std::cout << "Se mueve hacia:\t\t" << nomPrc << std::endl;
+    std::cout << "Lineas procesadas:\t\t" << totallineas << std::endl;
+    std::cout << "Lineas con error:\t\t" << lineaserror << std::endl;
 }
 
 

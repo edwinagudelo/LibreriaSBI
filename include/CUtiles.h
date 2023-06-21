@@ -1,70 +1,69 @@
 #ifndef CUTILES_H
 #define CUTILES_H
 
-#include <dirent.h>
+#include <algorithm>
+#include <ctime>
+#include <ctype.h>
 #include <errno.h>
-#include <sys/stat.h>
-#include <errno.h>
+#include <iostream>
+#include <regex>
 #include <stdlib.h>
 #include <string.h>
-#include <ctime>
 #include <string>
-#include <iostream>
-#include <unistd.h>
-#if __cplusplus > 201100L
-#include <regex>
-#endif
 #include <vector>
-#include <algorithm>
-#include <ctype.h>
-#ifndef _WIN32
+#include <sys/stat.h>
+#ifdef __GNUC__
+#include <dirent.h>
 #include <glob.h>
+#include <unistd.h>
+#else
+#include <direct.h>
+#include <io.h>
 #endif
-
-
-using namespace std;
 
 namespace SBI{
+    /***
+     * @brief Esta clase tiene funciones utiles que son usadas desde cualquier otra clase
+    */
     class CUtiles
     {
         public:
             /** Default constructor */
-            CUtiles();
+            CUtiles() = delete;
             /** Default destructor */
-            virtual ~CUtiles();
-            /** Funcion para calcular fecha */
-            static char* traerFechaActual();
+            virtual ~CUtiles() = delete;
             /** Funcion para calcular fecha actual con formato*/
-            static char* traerFechaActual(char* formato);
+            static const char* traerFechaActual(char* formato);
+            /** Funcion para calcular fecha */
+            static const char* traerFechaActual();
             /** Funcion para escanear archivos en un directorio a partir de una mascara */
-            static int traerListaArchivos(string ruta, string mascara, vector<string> &archivos);
+            static int traerListaArchivos(std::string ruta, std::string mascara, std::vector<std::string> &archivos);
             /** Funcion para escanear archivos en un directorio a partir de una mascara y ordenados */
-            static int traerListaArchivos(string ruta, string mascara, vector<string> &archivos, int ord);
-            /** Funcion para hacer split de una cadena */
-            static void split(string cadena, char sep, vector<string> &retorno);
+            static int traerListaArchivos(std::string ruta, std::string mascara, std::vector<std::string> &archivos, int ord);
+            /** Funcion para escanear archivos en un directorio a partir de una mascara y ordenados */
+            static int traerListaArchivos(std::string ruta, std::vector<std::string> &archivos);
+            /** Funcion para hacer separarCadena de una cadena */
+            static int separarCadena(const std::string& cadena, const char& sep, std::vector<std::string>& retorno);
             /** Funcion para retornar el nombre de un archivo */
-            static string getFileName(const string& s);
+            static std::string traerNombreArchivo(const std::string& s);
             /** Funcion para eliminar espacios*/
             static void retiraEspacios(char* str);
             /** Funcion para retornar el caracter separador de SO*/
-            static char* carSeparador();
+            static const char* carSeparador();
             /** Funcion para calcular el digito de chequeo de una referencia*/
-            static char* refPago(char* num);
+            static const char* calcularReferencia(const char* num);
             /** Funcion para retirar un caracter*/
             static void retiraCaracter(char* str, char car);
             /** Funcion para cambiar un caracter*/
-            static void cambiaCaracter(char* str, char car_o, char car_d);
+            static int cambiaCaracter(char* str, char car_o, char car_d);
             /** Funcion para crear un directorio */
             static int crearDirectorio(char* ruta);
             /** Funcion para saber si un directorio existe */
             static int dirExiste(const char *path);
             /** Funcion para retornar el nombre del usuario de sistema operativo */
-            static string getOSUsername();
-            /** Funcion para validar el acceso a un archivo */
-            static int valAcceso(const char *path);
-
-        protected:
-        private:
+            static const std::string traerNombreUsuarioSO();
+            /** Funcion para validar el acceso a lectura de un archivo */
+            static int validarAccesoLectura(const char *path);
     };
 }
 
