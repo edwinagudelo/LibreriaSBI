@@ -1,9 +1,9 @@
 # 
 # CMake file
 
-cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
 
-project(LibreriaSBI VERSION 2.0.0 LANGUAGE CXX)
+project(LibreriaSBI LANGUAGES CXX)
 
 # Require C++ 11
 set(CMAKE_CXX_STANDARD 11)
