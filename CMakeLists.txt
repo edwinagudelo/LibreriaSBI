@@ -12,6 +12,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 option(USE_HARDWARE "Usar las librerias de hardware" ON)
 
+# includes
+include_directories("./hardware/include")
+include_directories("./include")
 
 add_library(libsbitest SHARED libsbi_test.cpp)
 
