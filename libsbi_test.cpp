@@ -9,8 +9,8 @@
 
 #include <iostream>
 
-#include "CConexion.h"
-#include "CConfigura.h"
+// #include "CConexion.h"
+// #include "CConfigura.h"
 #include "CUtiles.h"
 
 
