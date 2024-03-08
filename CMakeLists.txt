@@ -16,7 +16,10 @@ option(USE_HARDWARE "Usar las librerias de hardware" ON)
 include_directories("./hardware/include")
 include_directories("./include")
 
-add_library(libsbitest SHARED libsbi_test.cpp)
+# find _package(Catch2 REQUIRED)
+
+#add_library(libsbitest SHARED libsbi_test.cpp)
+add_executable(libsbitest libsbi_test.cpp)
 
 target_include_directories(libsbitest PUBLIC "${PROJECT_SOURCE_DIR}/hardware/include")
 target_include_directories(libsbitest PUBLIC "${PROJECT_SOURCE_DIR}/include")
@@ -26,5 +29,9 @@ if(USE_HARDWARE)
     target_link_libraries(libsbitest PUBLIC CSensor)
     target_link_libraries(libsbitest PUBLIC CRegistro)
 endif()
+
+# target_link_libraries(libsbitest Catch2::Catch2WithMain)
+add_library(CConfigura STATIC src/Cconfigura.cpp include/CConfigura.h)
+target_link_libraries(libsbitest PUBLIC CConfigura)
 
 # add_subdirectory(hardware)
