@@ -2,13 +2,9 @@
 #define CCONFIGURA_H
 
 // Includes
-#include <algorithm>
 #include <iostream>
 #include <map>
 #include <string>
-#include <vector>
-
-#define VER_CFG "1000"
 
 class CConfigura
 {
@@ -18,35 +14,20 @@ class CConfigura
         /** Default destructor */
         virtual ~CConfigura();
 
-        /**
-            Enumeracion que me indica el tipo de parametro
-        */
-        typedef enum {
-            NO_TIPO,
-            ENTERO,
-            CARACTER,
-            FLOTANTE,
-            FECHA
-        }TIPO_CONF;
+        /** Return a parameter */
+        std::string getParam(const std::string& llave);
+        /** Set a parameter */
+        bool setParam(const std::string& llave, const std::string& valor);
+        /** Get the modification parameter */
+        bool getModif();
+        /** Set modification parameter */
+        void setModif(bool modif);
+        /** Show all parameters */
+        void mostrar();
 
-        /** Funciones a implementar */
-        virtual std::string getParam(std::string llave);
-        /** Funciones a implementar */
-        virtual bool setParam(std::string llave, std::string valor);
-        /** Funciones a implementar */
-        virtual bool setParam(std::string llave, std::string valor, int tipo);
-        /** Funciones a implementar */
-        virtual int getModif();
-        /** Funciones a implementar */
-        virtual void setModif(int modif);
-        /** Funciones a implementar */
-        virtual int cargar() = 0;
-        /** Funciones a implementar */
-        virtual void mostrar();
-    protected:
     private:
-        std::map<std::string, std::map<std::string, int> > configuraciones;
-        int modificable;
+        std::map<std::string, std::string> configuraciones;
+        bool modificable;
 };
 
 #endif // CCONFIGURA_H
