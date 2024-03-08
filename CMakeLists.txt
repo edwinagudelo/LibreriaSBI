@@ -5,8 +5,8 @@ cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
 
 project(LibreriaSBI LANGUAGES CXX)
 
-# Require C++ 11
-set(CMAKE_CXX_STANDARD 11)
+# Require C++ 17
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -16,9 +16,6 @@ option(USE_HARDWARE "Usar las librerias de hardware" ON)
 include_directories("./hardware/include")
 include_directories("./include")
 
-# find _package(Catch2 REQUIRED)
-
-#add_library(libsbitest SHARED libsbi_test.cpp)
 add_executable(libsbitest libsbi_test.cpp)
 
 target_include_directories(libsbitest PUBLIC "${PROJECT_SOURCE_DIR}/hardware/include")
@@ -30,8 +27,7 @@ if(USE_HARDWARE)
     target_link_libraries(libsbitest PUBLIC CRegistro)
 endif()
 
-# target_link_libraries(libsbitest Catch2::Catch2WithMain)
 add_library(CConfigura STATIC src/Cconfigura.cpp include/CConfigura.h)
 target_link_libraries(libsbitest PUBLIC CConfigura)
 
-# add_subdirectory(hardware)
+add_subdirectory(tests)

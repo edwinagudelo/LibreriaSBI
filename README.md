@@ -14,9 +14,10 @@ Este proyecto tiene las siguientes dependencias:
 Para hacer la compilacion, usando CMake y conan, es necesario ejecutar los siguientes comandos:
 
 ```console
-$> conan install . --output-folder=build --build=missing -pr=mscvdebug
-$> cd build
-$> cmake .. -DCMAKE_TOOLCHAIN_FILE="conan_toolchain.cmake"
+$> conan install . --build=missing
+$> cd build/generators
+$> cmake ../.. -DCMAKE_TOOLCHAIN_FILE="conan_toolchain.cmake"
+$> cmake --build .
 ```
 
-Con esto se validara el codigo usando el perfil "msvcdebug", pero eso depende de los perfiles que se estén manejando.
+El cambio tiene que ver con los la ubicacion del CMakeLists.txt
