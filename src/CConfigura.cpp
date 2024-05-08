@@ -1,5 +1,7 @@
 #include "CConfigura.h"
 
+using namespace SBI::Utils;
+
 CConfigura::CConfigura()
 {
     //ctor

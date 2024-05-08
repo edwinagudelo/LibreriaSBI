@@ -4,9 +4,11 @@
 
 #include "CConfigura.h"
 
+using namespace SBI::Utils;
+
 TEST_CASE("Check The configuration") {
     // Arrange
-    std::unique_ptr<CConfigura> config = std::make_unique<CConfigura>();
+    std::unique_ptr<SBI::Utils::CConfigura> config = std::make_unique<SBI::Utils::CConfigura>();
 
     // Act
     auto setparam = config->setParam("prueba", "123");
@@ -17,7 +19,7 @@ TEST_CASE("Check The configuration") {
 
 TEST_CASE("Check getParam Ok") {
     // Arrange
-    std::unique_ptr<CConfigura> config = std::make_unique<CConfigura>();
+    std::unique_ptr<SBI::Utils::CConfigura> config = std::make_unique<SBI::Utils::CConfigura>();
     auto setparam = config->setParam("prueba", "123");
 
     // Act 
@@ -30,7 +32,7 @@ TEST_CASE("Check getParam Ok") {
 
 TEST_CASE("Check getParam Fail") {
     // Arrange
-    std::unique_ptr<CConfigura> config = std::make_unique<CConfigura>();
+    std::unique_ptr<SBI::Utils::CConfigura> config = std::make_unique<SBI::Utils::CConfigura>();
     
     // Act 
     auto value = config->getParam("prueba1");
