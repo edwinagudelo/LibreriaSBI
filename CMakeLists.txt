@@ -27,7 +27,7 @@ if(USE_HARDWARE)
     target_link_libraries(libsbitest PUBLIC CRegistro)
 endif()
 
-add_library(CConfigura STATIC src/Cconfigura.cpp include/CConfigura.h)
+add_library(CConfigura STATIC src/CConfigura.cpp include/CConfigura.h)
 target_link_libraries(libsbitest PUBLIC CConfigura)
 
 add_subdirectory(tests)

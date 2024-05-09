@@ -14,7 +14,7 @@
 
 void test_configura(){
     std::cout << "Iniciando pruebas de CConfigura" << std::endl;
-    std::unique_ptr<CConfigura> config = std::make_unique<CConfigura>();
+    std::unique_ptr<SBI::Utils::CConfigura> config = std::make_unique<SBI::Utils::CConfigura>();
     auto setparam = config->setParam("prueba", "123");
     if (!setparam) {
         std::cout << "Error: El parametro no se pudo setear" << std::endl;
