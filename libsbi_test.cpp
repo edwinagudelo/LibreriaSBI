@@ -28,7 +28,7 @@ void test_configura(){
         std::cout << "Error: El parametro se dejo modificar" << std::endl;
     }
     else {
-        std::cout << "El parametro no se dejo modifiacar" << std::endl;
+        std::cout << "El parametro no se dejo modificar" << std::endl;
     }
     auto param = config->getParam("prueba");
     if (param != "123") {

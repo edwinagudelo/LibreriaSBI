@@ -6,10 +6,10 @@ Esto es un intento por tener ciertas funcionalidades concentradas en un solo rep
 
 Este proyecto tiene las siguientes dependencias:
 
- - LibPQ
- - OCILIB
+- LibPQ
+- OCILIB
 
- ## Como Compilar
+## Como Compilar
 
 Para hacer la compilacion, usando CMake y conan, es necesario ejecutar los siguientes comandos:
 
@@ -21,4 +21,3 @@ $> cmake --build .
 ```
 
 El cambio tiene que ver con los la ubicacion del _CMakeLists.txt_ y hay que tener en cuenta que si existe el directorio _build_ o el directorio _out_ o el archivo _CMakeUserPresets.json_ debe eliminarse y luego proceder los comandos antes citados
-

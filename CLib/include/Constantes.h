@@ -1,0 +1,10 @@
+#ifndef CONSTANTES_H
+#define CONSTANTES_H
+
+enum RESULT_CODES {
+    OKCODE, 
+    NOMEMORY,
+    GENERICERROR
+};
+
+#endif
