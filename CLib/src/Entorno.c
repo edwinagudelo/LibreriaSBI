@@ -14,3 +14,31 @@ int crearDirectorio(const char* ruta) {
         retorno = -1;
     return retorno;
 }
+
+int renonmbrarDirectorio(const char* nombreAnt, const char* nombreNue) {
+    int retorno = 0;
+    if(validarDirectorioExiste(nombreAnt) == 0) {
+        retorno = rename(nombreAnt, nombreNue);
+    }
+    return retorno;
+}
+
+
+int validarDirectorioExiste(const char* ruta) {
+    struct stat info;
+
+    if(stat( ruta, &info ) != 0)
+        return 0;
+    else if(info.st_mode & S_IFDIR)
+        return 1;
+    else
+        return 0;
+}
+
+int borrarDirectorio(const char* ruta) {
+    int retorno = 0;
+    if(validarDirectorioExiste(ruta) == 0) {
+        retorno = remove(ruta);
+    }
+    return retorno;
+}
