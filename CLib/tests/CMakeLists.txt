@@ -23,10 +23,10 @@ include(CTest)
 add_test(NAME configura_test COMMAND configura_test)
 add_test(NAME entorno_test COMMAND entorno_test)
 
-# Set the PATH for tests to find the DLL
+# Set the PATH for tests to find the DLL (works for both Debug and Release)
 set_tests_properties(configura_test PROPERTIES 
-    ENVIRONMENT "PATH=${CMAKE_BINARY_DIR}/CLib/Release;$ENV{PATH}"
+    ENVIRONMENT "PATH=${CMAKE_BINARY_DIR}/CLib/$<CONFIG>;$ENV{PATH}"
 )
 set_tests_properties(entorno_test PROPERTIES 
-    ENVIRONMENT "PATH=${CMAKE_BINARY_DIR}/CLib/Release;$ENV{PATH}"
+    ENVIRONMENT "PATH=${CMAKE_BINARY_DIR}/CLib/$<CONFIG>;$ENV{PATH}"
 )

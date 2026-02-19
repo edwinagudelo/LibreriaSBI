@@ -30,14 +30,6 @@ struct Param
 };
 
 /**
- * @brief Root pointer for the parameter linked list
- * 
- * Static global variable that points to the first parameter in the list.
- * Initialized to NULL when no parameters exist.
- */
-static struct Param *paramRoot = NULL;
-
-/**
  * @brief Add a new parameter to the configuration system
  * 
  * Creates a new parameter node and adds it to the end of the linked list.

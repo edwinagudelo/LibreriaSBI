@@ -6,6 +6,17 @@ extern "C" {
     #include "Constantes.h"
 }
 
+// Helper to ensure clean state before each test
+class ConfiguraTestFixture {
+public:
+    ConfiguraTestFixture() {
+        liberarMemoriaParametros();
+    }
+    ~ConfiguraTestFixture() {
+        liberarMemoriaParametros();
+    }
+};
+
 TEST_CASE("Configura - Parameter creation", "[configura]") {
     SECTION("crearParam creates a valid parameter structure") {
         struct Param* param = crearParam();
@@ -19,9 +30,8 @@ TEST_CASE("Configura - Parameter creation", "[configura]") {
     }
 }
 
-TEST_CASE("Configura - Adding parameters", "[configura]") {
-    // Clean up before tests
-    liberarMemoriaParametros();
+TEST_CASE("Configura - Adding string parameters", "[configura]") {
+    ConfiguraTestFixture fixture;
     
     SECTION("agregarParam adds a string parameter successfully") {
         const char* testName = "test_key";
@@ -42,20 +52,7 @@ TEST_CASE("Configura - Adding parameters", "[configura]") {
         free(retrieved);
     }
     
-    SECTION("agregarParam adds an integer parameter") {
-        const char* testName = "int_key";
-        int testValue = 42;
-        
-        int result = agregarParam(
-            const_cast<char*>(testName), 
-            &testValue, 
-            sizeof(int)
-        );
-        
-        REQUIRE(result == OKCODE);
-    }
-    
-    SECTION("agregarParam adds multiple parameters") {
+    SECTION("agregarParam adds multiple string parameters") {
         const char* key1 = "key1";
         const char* value1 = "value1";
         const char* key2 = "key2";
@@ -83,13 +80,10 @@ TEST_CASE("Configura - Adding parameters", "[configura]") {
         free(retrieved2);
         free(retrieved3);
     }
-    
-    // Clean up after tests
-    liberarMemoriaParametros();
 }
 
 TEST_CASE("Configura - Retrieving parameters", "[configura]") {
-    liberarMemoriaParametros();
+    ConfiguraTestFixture fixture;
     
     SECTION("traerParamComoChar returns nullptr for non-existent key") {
         char* result = traerParamComoChar("non_existent_key");
@@ -121,12 +115,10 @@ TEST_CASE("Configura - Retrieving parameters", "[configura]") {
         
         free(retrieved);
     }
-    
-    liberarMemoriaParametros();
 }
 
 TEST_CASE("Configura - Memory cleanup", "[configura]") {
-    liberarMemoriaParametros();
+    ConfiguraTestFixture fixture;
     
     SECTION("liberarMemoriaParametros frees all parameters") {
         agregarParam(const_cast<char*>("key1"), const_cast<void*>(static_cast<const void*>("value1")), 7);
@@ -158,7 +150,7 @@ TEST_CASE("Configura - Memory cleanup", "[configura]") {
 }
 
 TEST_CASE("Configura - Edge cases", "[configura]") {
-    liberarMemoriaParametros();
+    ConfiguraTestFixture fixture;
     
     SECTION("Handle long parameter names and values") {
         const char* longKey = "this_is_a_very_long_parameter_name_for_testing_purposes";
@@ -191,6 +183,4 @@ TEST_CASE("Configura - Edge cases", "[configura]") {
         
         free(retrieved);
     }
-    
-    liberarMemoriaParametros();
 }

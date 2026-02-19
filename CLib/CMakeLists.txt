@@ -23,8 +23,8 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     # G++
     target_compile_options(sbi_clib PRIVATE -Wall -Wextra)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    # MSVC
-    target_compile_options(sbi_clib PRIVATE /EHsc /MTd /W2 /c)
+    # MSVC - Let CMake/Conan handle runtime library selection
+    target_compile_options(sbi_clib PRIVATE /EHsc /W2)
     # Set the DLLEXPORT variable to export symbols
     target_compile_definitions(sbi_clib PRIVATE WIN_EXPORT)
 endif()

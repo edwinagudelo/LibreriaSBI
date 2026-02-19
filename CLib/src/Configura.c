@@ -4,6 +4,8 @@
 
 #include <string.h>
 
+// Global variable for the parameter linked list
+static struct Param *paramRoot = NULL;
 
 struct Param* crearParam(){
     struct Param* result = NULL;
@@ -60,9 +62,13 @@ char* traerParamComoChar(const char* key){
     char *result = NULL;
     while ( tempParam != NULL ) {
         if (strcmp(tempParam->paramName, key) == 0) {
-            result = malloc(sizeof(char) * (strlen(tempParam->paramValue) + 1));
+            // Assume paramValue is a null-terminated string
+            // Calculate length safely by treating it as a string
+            const char* strValue = (const char*)tempParam->paramValue;
+            size_t len = strlen(strValue);
+            result = (char*)malloc(sizeof(char) * (len + 1));
             if (result) {
-                strcpy(result, tempParam->paramValue);
+                strcpy(result, strValue);
             }
             break;
         }
