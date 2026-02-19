@@ -1,6 +1,6 @@
 # Libreria SBI
 
-![SBI Library CI](https://github.com/YOUR_USERNAME/YOUR_REPO/actions/workflows/sbilib_pipeline.yml/badge.svg)
+![SBI Library CI](https://github.com/edwinagudelo/LibreriaSBI/actions/workflows/sbilib_pipeline.yml/badge.svg)
 
 Esto es un intento por tener ciertas funcionalidades concentradas en un solo repositorio
 
