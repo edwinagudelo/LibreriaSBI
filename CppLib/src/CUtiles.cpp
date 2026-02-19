@@ -141,7 +141,6 @@ void CUtiles::retiraEspacios(char* str){
     str[i] = '\0';
 }
 
-
 void CUtiles::retiraCaracter(char* str, char car){
     unsigned int i=0;
     unsigned int j=i;
