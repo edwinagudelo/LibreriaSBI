@@ -1,23 +1,37 @@
 
+// Implementacion de funciones de entorno
 #include "Entorno.h"
+#include <stdlib.h>
+#include <string.h>
+
+// MinGW on Windows needs Windows API, not POSIX
+#if defined(__MINGW32__) || defined(__MINGW64__)
+#include <io.h>
+#include <direct.h>
+#define USE_WINDOWS_API
+#endif
 
 int crearDirectorio(const char* ruta) {
     int retorno = 0;
     int estado = 0;
-    #ifndef _WIN32
-    estado = mkdir(ruta,S_IRWXU | S_IRWXG | S_IRWXO);
+    errno = 0;
+    #if defined(_MSC_VER) || defined(USE_WINDOWS_API)
+    estado = _mkdir(ruta);
     #else
-    estado = mkdir(ruta);
+    estado = mkdir(ruta,S_IRWXU | S_IRWXG | S_IRWXO);
     #endif
     
-    if(estado != 0)
+    if(estado != 0){
+        printf("Error creando el director %s > %d\n", ruta, errno);
         retorno = -1;
+    }
+        
     return retorno;
 }
 
 int renonmbrarDirectorio(const char* nombreAnt, const char* nombreNue) {
     int retorno = 0;
-    if(validarDirectorioExiste(nombreAnt) == 0) {
+    if(validarDirectorioExiste(nombreAnt) == 1) {
         retorno = rename(nombreAnt, nombreNue);
     }
     return retorno;
@@ -25,29 +39,48 @@ int renonmbrarDirectorio(const char* nombreAnt, const char* nombreNue) {
 
 
 int validarDirectorioExiste(const char* ruta) {
-    struct stat info;
 
+    #if defined(_MSC_VER) || defined(USE_WINDOWS_API)
+    struct _stat info;
+    if(_stat(ruta, &info) != 0)
+        return 0;
+    else if(info.st_mode & _S_IFDIR)
+        return 1;
+    else
+        return 0;
+    #else
+    struct stat info;
     if(stat( ruta, &info ) != 0)
         return 0;
     else if(info.st_mode & S_IFDIR)
         return 1;
     else
         return 0;
+    #endif
+
 }
 
 int borrarDirectorio(const char* ruta) {
     int retorno = 0;
-    if(validarDirectorioExiste(ruta) == 0) {
-        retorno = remove(ruta);
+    if(validarDirectorioExiste(ruta) == 1) {
+        printf("Removing %s\n", ruta);
+        #if defined(_MSC_VER) || defined(USE_WINDOWS_API)
+        retorno = _rmdir(ruta);
+        #else
+        retorno = rmdir(ruta);
+        #endif
     }
     return retorno;
 }
 
 char *leerVariableEntorno(const char *nombreVariableEntorno) {
+    printf("Reading %s env var\n", nombreVariableEntorno);
     char *valor = getenv(nombreVariableEntorno);
     if (valor == NULL) {
         return NULL;
     } else {
+        printf("Value is %s\n", valor);
+        //valor = strdup(valor);
         return valor;
     }
 }
@@ -98,7 +131,7 @@ int traerListaArchivos(const char *ruta, char ***archivos) {
     temp->siguiente = NULL;
 
 
-    #ifdef _MSC_VER
+    #if defined(_MSC_VER) || defined(USE_WINDOWS_API)
     struct _finddata_t c_file;
     intptr_t hFile;
     char* ruta_completa = malloc(strlen(ruta) + 10);
@@ -143,7 +176,8 @@ int traerListaArchivos(const char *ruta, char ***archivos) {
     free(ruta_completa);
     free(temp); // Liberar el último nodo temporal
     #else
-    // Implementación para sistemas POSIX
+    // Implementación para sistemas POSIX (Linux/macOS)
+    #include <dirent.h>
     DIR *dir = opendir(ruta);
     if (dir == NULL) {
         free(temp);

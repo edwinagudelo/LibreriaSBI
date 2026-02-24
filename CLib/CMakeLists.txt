@@ -19,14 +19,17 @@ target_sources(sbi_clib
         ${CMAKE_CURRENT_SOURCE_DIR}/src/Entorno.c
 )
 
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    # G++
-    target_compile_options(sbi_clib PRIVATE -Wall -Wextra)
+# Enable debug symbols for all build types
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    # GCC/Clang
+    target_compile_options(sbi_clib PRIVATE -Wall -Wextra -g3 -O0)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     # MSVC - Let CMake/Conan handle runtime library selection
-    target_compile_options(sbi_clib PRIVATE /EHsc /W2)
+    target_compile_options(sbi_clib PRIVATE /EHsc /W2 /Zi /Od)
     # Set the DLLEXPORT variable to export symbols
     target_compile_definitions(sbi_clib PRIVATE WIN_EXPORT)
+    # Generate PDB files for debugging
+    target_link_options(sbi_clib PRIVATE /DEBUG:FULL)
 endif()
 
 # Enable testing

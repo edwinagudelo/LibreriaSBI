@@ -38,6 +38,10 @@ TEST_CASE("Entorno - Directory operations", "[entorno][directory]") {
     SECTION("renonmbrarDirectorio renames an existing directory") {
         const char* oldName = "old_dir_name";
         const char* newName = "new_dir_name";
+
+        // Clean data
+        borrarDirectorio(oldName);
+        borrarDirectorio(newName);
         
         crearDirectorio(oldName);
         

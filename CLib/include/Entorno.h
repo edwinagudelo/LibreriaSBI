@@ -1,6 +1,7 @@
 #ifndef ENTORNO_H
 #define ENTORNO_H
 
+#include <errno.h>
 #include <stdio.h>
 #include <sys/stat.h>
 #ifdef _MSC_VER
