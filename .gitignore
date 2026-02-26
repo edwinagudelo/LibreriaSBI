@@ -1,9 +1,12 @@
 # Directories
 
 .vscode/
+.vsconan/
 build/
+build-gcc/
 out/
 mybuild/
+[Dd]ebug/
 
 # Files
 *.obj
